@@ -39,7 +39,7 @@ public class AuthHandler implements Filter {
             return;
         }
         //3.获取请求头中的token
-        String jwt = request.getHeader("token");
+        String jwt = request.getHeader("Authorization").replace("Bearer ","");
         //4.判断请求头是否为空
         if (!StringUtils.hasLength(jwt)) {
             log.info("请求头为空");
@@ -55,7 +55,6 @@ public class AuthHandler implements Filter {
         } catch (Exception e) {
             log.info(e.getMessage());
             ResponseEntity<Object> result = new ResponseEntity<>().fail(Code.UNAUTHORIZED.getCode(), Message.TOKEN_IS_ERROR.getMessage());
-            ;
             String jsonString = JSONObject.toJSONString(result);
             System.out.println(result);
             response.getWriter().write(jsonString);

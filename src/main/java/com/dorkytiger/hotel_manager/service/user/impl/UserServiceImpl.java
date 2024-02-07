@@ -1,7 +1,7 @@
 package com.dorkytiger.hotel_manager.service.user.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.dorkytiger.hotel_manager.mapper.UserMapper;
+import com.dorkytiger.hotel_manager.mapper.UserInfoMapper;
 import com.dorkytiger.hotel_manager.model.common.ResponseEntity;
 import com.dorkytiger.hotel_manager.model.user.UserInfoEntity;
 import com.dorkytiger.hotel_manager.model.user.repsonse.LoginResponseEntity;
@@ -20,11 +20,11 @@ import java.util.Optional;
 @Transactional
 public class UserServiceImpl implements UserService {
 
-    private final UserMapper userMapper;
+    private final UserInfoMapper userInfoMapper;
 
     @Autowired
-    public UserServiceImpl(UserMapper userMapper) {
-        this.userMapper = userMapper;
+    public UserServiceImpl(UserInfoMapper userInfoMapper) {
+        this.userInfoMapper = userInfoMapper;
     }
 
     @Override
@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService {
         String username = Optional.ofNullable(registerRequestEntity.getUsername()).orElseThrow(() -> new IllegalArgumentException("用户名不能为空"));
         String password = Optional.ofNullable(registerRequestEntity.getPassword()).orElseThrow(() -> new IllegalArgumentException("密码不能为空"));
         Integer type = Optional.ofNullable(registerRequestEntity.getType()).orElseThrow(() -> new IllegalArgumentException("类型不能为空"));
-        UserInfoEntity userInfo = userMapper.selectOne(new LambdaQueryWrapper<UserInfoEntity>().eq(UserInfoEntity::getUsername, username));
+        UserInfoEntity userInfo = userInfoMapper.selectOne(new LambdaQueryWrapper<UserInfoEntity>().eq(UserInfoEntity::getUsername, username));
         if (userInfo != null) {
             return new ResponseEntity<String>().fail("用户名已存在");
         }
@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService {
                 encodePassword,
                 type
         );
-        int isInsert = userMapper.insert(userInfoEntity);
+        int isInsert = userInfoMapper.insert(userInfoEntity);
         if (isInsert == 0) {
             return new ResponseEntity<String>().fail("注册失败");
         }
@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserService {
         String username = Optional.ofNullable(loginRequestEntity.getUsername()).orElseThrow(() -> new IllegalArgumentException("用户名不能为空"));
         String password = Optional.ofNullable(loginRequestEntity.getPassword()).orElseThrow(() -> new IllegalArgumentException("密码不能为空"));
         String encodePassword = MD5Util.getMD5(password);
-        UserInfoEntity userInfoEntity = userMapper.selectOne(new LambdaQueryWrapper<UserInfoEntity>().eq(UserInfoEntity::getUsername, username));
+        UserInfoEntity userInfoEntity = userInfoMapper.selectOne(new LambdaQueryWrapper<UserInfoEntity>().eq(UserInfoEntity::getUsername, username));
         if (userInfoEntity == null) {
             return new ResponseEntity<LoginResponseEntity>().fail("用户不存在");
         }

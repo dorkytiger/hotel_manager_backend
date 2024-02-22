@@ -10,4 +10,8 @@ public interface RoomInfoService {
     ResponseEntity<Object> createRoomInfo(RoomInfoEntity roomInfoEntity);
 
     ResponseEntity<List<RoomInfoEntity>> roomList();
+
+    ResponseEntity<Object> updateRoomInfo(RoomInfoEntity roomInfoEntity);
+
+    ResponseEntity<Object> deleteRoomInfo(String id);
 }

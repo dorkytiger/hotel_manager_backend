@@ -63,8 +63,6 @@ public class AuthHandler implements Filter {
         //6.放行
         log.info("放行");
         filterChain.doFilter(request, response);
-
-
     }
 
     @Override

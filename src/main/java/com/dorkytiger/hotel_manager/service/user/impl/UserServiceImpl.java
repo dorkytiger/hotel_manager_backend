@@ -1,7 +1,7 @@
 package com.dorkytiger.hotel_manager.service.user.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.dorkytiger.hotel_manager.mapper.UserInfoMapper;
+import com.dorkytiger.hotel_manager.mapper.user.UserInfoMapper;
 import com.dorkytiger.hotel_manager.model.common.ResponseEntity;
 import com.dorkytiger.hotel_manager.model.user.UserInfoEntity;
 import com.dorkytiger.hotel_manager.model.user.repsonse.LoginResponseEntity;

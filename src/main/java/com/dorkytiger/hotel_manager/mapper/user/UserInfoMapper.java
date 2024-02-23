@@ -1,4 +1,4 @@
-package com.dorkytiger.hotel_manager.mapper;
+package com.dorkytiger.hotel_manager.mapper.user;
 
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;

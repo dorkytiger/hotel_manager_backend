@@ -10,12 +10,12 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/room")
-public class RoomController {
+public class RoomInfoController {
 
     private final RoomInfoService roomInfoService;
 
     @Autowired
-    public RoomController(RoomInfoService roomInfoService) {
+    public RoomInfoController(RoomInfoService roomInfoService) {
         this.roomInfoService = roomInfoService;
     }
 
@@ -38,5 +38,6 @@ public class RoomController {
     public ResponseEntity<List<RoomInfoEntity>> roomList() {
         return roomInfoService.roomList();
     }
+
 
 }

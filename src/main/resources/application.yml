@@ -7,3 +7,7 @@ spring:
     url: jdbc:mysql://rm-bp1w6k7an61izp32ito.mysql.rds.aliyuncs.com:3306/hotel_manage_dev?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT%2B8
     username: u04440452
     password: hyznaf-vejxUn-tovdy4
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true

@@ -19,7 +19,7 @@ public class JwtUtil {
     /**
      * 过期时间
      **/
-    private static final long EXPIRATION = 1800L;//单位为秒
+    private static final long EXPIRATION = 12*60*60L;//单位为秒
 
     /**
      * 生成用户token,设置token超时时间
@@ -32,7 +32,7 @@ public class JwtUtil {
         return Jwts.builder()
                 .signWith(SignatureAlgorithm.HS256, SECRET)//设置签名(头）
                 .setClaims(claims)//设置载荷（身体）
-                .setExpiration(new Date(System.currentTimeMillis() + 3600 * 1000))//有效期为一小时
+                .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION))//有效期
                 .compact();
     }
 

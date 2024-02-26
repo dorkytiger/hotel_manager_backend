@@ -2,8 +2,6 @@ package com.dorkytiger.hotel_manager.controller.room;
 
 
 import com.dorkytiger.hotel_manager.model.common.ResponseEntity;
-
-import com.dorkytiger.hotel_manager.model.room.RoomBillEntity;
 import com.dorkytiger.hotel_manager.model.room.RoomBookEntity;
 import com.dorkytiger.hotel_manager.service.room.RoomBookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +30,4 @@ public class RoomBookController {
         return roomBookService.roomUse(roomId);
     }
 
-    @PutMapping("/bill")
-    public ResponseEntity<Object> roomBill(@RequestBody RoomBillEntity roomBillEntity){
-        return roomBookService.roomBill(roomBillEntity);
-    }
 }

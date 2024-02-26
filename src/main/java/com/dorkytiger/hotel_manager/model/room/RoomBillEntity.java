@@ -17,5 +17,5 @@ public class RoomBillEntity extends BaseEntity {
     private String customerName;
     private String customerPhone;
     private String SerialNumber;
-    private Integer money;
+    private Integer price;
 }

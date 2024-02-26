@@ -6,4 +6,5 @@ public interface RoomBillService
 {
     ResponseEntity<Object> checkOut(String id);
 
+    ResponseEntity<Object> getBillByTimeRange(String start, String end);
 }

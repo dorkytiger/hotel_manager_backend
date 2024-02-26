@@ -26,31 +26,31 @@ public class RoomInfoServiceImpl implements RoomInfoService {
     public ResponseEntity<Object> createRoomInfo(RoomInfoEntity roomInfoEntity) {
         roomInfoEntity.setStatus(RoomStatus.SPACE.getStatus());
         roomInfoMapper.insert(roomInfoEntity);
-        return new ResponseEntity<>().success();
+        return  ResponseEntity.success();
     }
 
     @Override
     public ResponseEntity<List<RoomInfoEntity>> roomList() {
         List<RoomInfoEntity> roomInfoEntities = roomInfoMapper.selectList(new LambdaQueryWrapper<>());
-        return new ResponseEntity<List<RoomInfoEntity>>().success(roomInfoEntities);
+        return  ResponseEntity.success(roomInfoEntities);
     }
 
     @Override
     public ResponseEntity<Object> updateRoomInfo(RoomInfoEntity roomInfoEntity) {
         roomInfoMapper.updateById(roomInfoEntity);
-        return new ResponseEntity<>().success();
+        return  ResponseEntity.success();
     }
 
     @Override
     public ResponseEntity<Object> deleteRoomInfo(String id) {
         RoomInfoEntity roomInfoEntity = Optional.ofNullable(roomInfoMapper.selectById(id)).orElseThrow(() -> new IllegalArgumentException("房间不存在"));
         if (roomInfoEntity.getStatus().equals(RoomStatus.IN_USE.getStatus())) {
-            return new ResponseEntity<>().fail("房间正在使用中");
+            return ResponseEntity.fail("房间正在使用中");
         }
         if (roomInfoEntity.getStatus().equals(RoomStatus.BOOK.getStatus())) {
-            return new ResponseEntity<>().fail("房间1️⃣预定");
+            return ResponseEntity.fail("房间1️⃣预定");
         }
         roomInfoMapper.deleteById(id);
-        return new ResponseEntity<>().success();
+        return ResponseEntity.success();
     }
 }

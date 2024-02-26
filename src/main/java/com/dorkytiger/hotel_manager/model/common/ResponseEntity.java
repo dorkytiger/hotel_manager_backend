@@ -14,23 +14,19 @@ public class ResponseEntity<T> {
     private String message;
     private T data;
 
-    public ResponseEntity<T> success(T data) {
-        return new ResponseEntity<T>(Code.SUCCESS.getCode(), Message.SUCCESS.getMessage(), data);
+    public static <T> ResponseEntity<T> success(T data) {
+        return new ResponseEntity<>(Code.SUCCESS.getCode(), Message.SUCCESS.getMessage(), data);
     }
 
-    public ResponseEntity<T> success() {
-        return new ResponseEntity<T>(Code.SUCCESS.getCode(), Message.SUCCESS.getMessage(), null);
+    public static <T> ResponseEntity<T> success() {
+        return new ResponseEntity<>(Code.SUCCESS.getCode(), Message.SUCCESS.getMessage(), null);
     }
 
-    public ResponseEntity<T> fail() {
-        return new ResponseEntity<T>(Code.FAIL.getCode(), Message.FAIL.getMessage(), null);
+    public static <T> ResponseEntity<T> fail(String message) {
+        return new ResponseEntity<>(Code.FAIL.getCode(), message, null);
     }
 
-    public ResponseEntity<T> fail(String message) {
-        return new ResponseEntity<T>(Code.FAIL.getCode(), message, null);
-    }
-
-    public ResponseEntity<T> fail(Integer code, String message) {
-        return new ResponseEntity<T>(code, message, null);
+    public static <T> ResponseEntity<T> fail(Integer code, String message) {
+        return new ResponseEntity<>(code, message, null);
     }
 }

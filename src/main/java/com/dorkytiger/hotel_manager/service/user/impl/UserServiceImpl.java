@@ -34,7 +34,7 @@ public class UserServiceImpl implements UserService {
         Integer type = Optional.ofNullable(registerRequestEntity.getType()).orElseThrow(() -> new IllegalArgumentException("类型不能为空"));
         UserInfoEntity userInfo = userInfoMapper.selectOne(new LambdaQueryWrapper<UserInfoEntity>().eq(UserInfoEntity::getUsername, username));
         if (userInfo != null) {
-            return new ResponseEntity<String>().fail("用户名已存在");
+            return ResponseEntity.fail("用户名已存在");
         }
         String encodePassword = MD5Util.getMD5(password);
         UserInfoEntity userInfoEntity = new UserInfoEntity(
@@ -44,10 +44,10 @@ public class UserServiceImpl implements UserService {
         );
         int isInsert = userInfoMapper.insert(userInfoEntity);
         if (isInsert == 0) {
-            return new ResponseEntity<String>().fail("注册失败");
+            return ResponseEntity.fail("注册失败");
         }
         String token = JwtUtil.createToken(userInfoEntity);
-        return new ResponseEntity<String>().success(token);
+        return ResponseEntity.success(token);
     }
 
     @Override
@@ -57,12 +57,12 @@ public class UserServiceImpl implements UserService {
         String encodePassword = MD5Util.getMD5(password);
         UserInfoEntity userInfoEntity = userInfoMapper.selectOne(new LambdaQueryWrapper<UserInfoEntity>().eq(UserInfoEntity::getUsername, username));
         if (userInfoEntity == null) {
-            return new ResponseEntity<LoginResponseEntity>().fail("用户不存在");
+            return ResponseEntity.fail("用户不存在");
         }
         if (!userInfoEntity.getPassword().equals(encodePassword)) {
-            return new ResponseEntity<LoginResponseEntity>().fail("密码错误");
+            return ResponseEntity.fail("密码错误");
         }
         String token = JwtUtil.createToken(userInfoEntity);
-        return new ResponseEntity<LoginResponseEntity>().success(new LoginResponseEntity(userInfoEntity.getId(), userInfoEntity.getType(), userInfoEntity.getUsername(), token));
+        return ResponseEntity.success(new LoginResponseEntity(userInfoEntity.getId(), userInfoEntity.getType(), userInfoEntity.getUsername(), token));
     }
 }

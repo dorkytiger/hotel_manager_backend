@@ -30,7 +30,7 @@ public class RoomBookServiceImpl implements RoomBookService {
     public ResponseEntity<Object> roomBook(RoomBookEntity roomBook) {
         boolean isPresent = Optional.ofNullable(roomBookMapper.selectOne(new LambdaQueryWrapper<RoomBookEntity>().eq(RoomBookEntity::getRoomId, roomBook.getRoomId()))).isPresent();
         if (isPresent) {
-            return new ResponseEntity<>().fail("订单已存在");
+            return ResponseEntity.fail("订单已存在");
         }
         String serialNumber = BillNumberUtil.generateBillNumber();
         roomBook.setStatus(RoomStatus.BOOK.getStatus());
@@ -41,22 +41,22 @@ public class RoomBookServiceImpl implements RoomBookService {
         roomInfoEntity.setStatus(RoomStatus.BOOK.getStatus());
         roomInfoMapper.update(roomInfoEntity, queryWrapper);
         roomBookMapper.insert(roomBook);
-        return new ResponseEntity<>().success();
+        return ResponseEntity.success();
     }
 
     @Override
     public ResponseEntity<Object> roomUse(String roomId) {
         boolean isPresent = Optional.ofNullable(roomBookMapper.selectOne(new LambdaQueryWrapper<RoomBookEntity>().eq(RoomBookEntity::getRoomId, roomId))).isPresent();
         if (!isPresent) {
-            return new ResponseEntity<>().fail("预定不存在");
+            return ResponseEntity.fail("预定不存在");
         }
         RoomInfoEntity roomInfoEntity = Optional.ofNullable(roomInfoMapper.selectById(roomId)).orElseThrow(() -> new IllegalArgumentException("房间不存在"));
         if (roomInfoEntity.getStatus().equals(RoomStatus.IN_USE.getStatus())) {
-            return new ResponseEntity<>().fail("房间正在使用中");
+            return ResponseEntity.fail("房间正在使用中");
         }
         roomInfoEntity.setStatus(RoomStatus.IN_USE.getStatus());
         roomInfoMapper.updateById(roomInfoEntity);
-        return new ResponseEntity<>().success();
+        return ResponseEntity.success();
     }
 
 }

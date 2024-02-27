@@ -16,6 +16,6 @@ public class GlobalExceptionHandler {
     @ResponseBody
     public ResponseEntity<Object> exceptionHandler(Exception e) {
         logger.error("未知异常！原因是:{}", e.getMessage());
-        return new ResponseEntity<>().fail(e.getMessage());
+        return ResponseEntity.fail(e.getMessage());
     }
 }

@@ -1,0 +1,4 @@
+FROM openjdk:17-jdk-alpine
+VOLUME /tmp/tomcat
+ADD hotel_manager-0.0.1-SNAPSHOT.jar hotel_manager.jar
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/hotel_manager.jar"]

@@ -1,7 +1,7 @@
 FROM registry.cn-qingdao.aliyuncs.com/hotel-manger-backend/maven:latest AS builder
 
 ADD ./pom.xml pom.xml
-ADD ./hotel-manager-backend hotel-manager-backend/
+ADD ./ hotel-manager-backend/
 
 RUN mvn clean package
 

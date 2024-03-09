@@ -1,6 +1,6 @@
 FROM registry.cn-qingdao.aliyuncs.com/hotel-manger-backend/maven:latest AS builder
 
-ADD . .
+COPY . .
 
 RUN mvn clean package
 
